@@ -102,16 +102,66 @@ const data = [
     {üç ayrı paragraf elementi}
 
     <button class="expandButton">+</button>
-  </div>
+  </div> */
 
-  Adım 2: Hala `haberYapici` içindeyiz, button.expandButton 'a bir click event dinleyici ekleyin.
-  Bu dinleyici div.article öğesine 'article-open' class'ını ekleyip/çıkaracak (toogle).
+/* Adım 2: Hala `haberYapici` içindeyiz, button.expandButton 'a bir click event dinleyici ekleyin.
+  Bu dinleyici div.article öğesine 'article-open' class'ını ekleyip/çıkaracak (toogle). */
 
-  Adım 3: Fonksiyonunuzdan bir öğe döndürmeyi unutmayın.
+/*Adım 3: Fonksiyonunuzdan bir öğe döndürmeyi unutmayın. */
 
-  Adım 4: Fonksiyonunuzun dışında, tüm datayı döngüye sokun(loop). Bir div.article öğesi oluşturmak ve bunu div.articles içindeki DOM'a eklemek için
-  her yinelemede oluşturduğunuz bileşeninizi kullanacaksınız(bknz. index.html).
+/* Adım 4: Fonksiyonunuzun dışında, tüm datayı döngüye sokun(loop). Bir div.article öğesi oluşturmak ve bunu div.articles içindeki DOM'a eklemek için
+  her yinelemede oluşturduğunuz bileşeninizi kullanacaksınız(bknz. index.html). */
 
-  Adım 5: Veri dizisine yeni haber nesnesi eklemeyi deneyin. Diğer verilerle aynı yapıda olmasına dikkat edin.
-  Eklediğiniz yeni haberi görmek için sayfayı yenileyin.
-*/
+/* Adım 5: Veri dizisine yeni haber nesnesi eklemeyi deneyin. Diğer verilerle aynı yapıda olmasına dikkat edin.
+  Eklediğiniz yeni haberi görmek için sayfayı yenileyin. */
+
+const HaberYapici = (haber) => {
+  //Destructing ile diziye deger atayalim:
+
+  const { baslik, tarih, ilkParagraf, ikinciParagraf, ucuncuParagraf } = haber;
+
+  //Elementleri olusturalim:
+
+  const card = document.createElement("div");
+  const title = document.createElement("h2");
+  const date = document.createElement("p");
+  const p1 = document.createElement("p");
+  const p2 = document.createElement("p");
+  const p3 = document.createElement("p");
+  const button = document.createElement("button");
+
+  //Elementlerin classlarini ve textlerini ekleyelim:
+
+  card.classList.add("article");
+  title.textContent = baslik;
+  date.classList.add("tarih");
+  date.textContent = tarih;
+  p1.textContent = ilkParagraf;
+  p2.textContent = ikinciParagraf;
+  p3.textContent = ucuncuParagraf;
+  button.classList.add("expandButton");
+  button.textContent = "+";
+
+  //buttona click event dinleyici ekleyelim:
+
+  button.addEventListener("click", () => {
+    card.classList.toggle("article-open");
+  });
+
+  //card elementinin içine title, date, p1, p2, p3, button elementlerini ekleyelim:
+
+  card.append(title, date, p1, p2, p3, button);
+
+  //card elementini dondurelim:
+
+  return card;
+};
+
+// HaberYapici componentini kullanarak data dizisini döngüye sokarak haberlerimizi oluşturup DOM'a ekleyelim:
+
+const container = document.querySelector(".articles");
+
+data.forEach((haber) => {
+  const card = HaberYapici(haber);
+  container.appendChild(card);
+});
