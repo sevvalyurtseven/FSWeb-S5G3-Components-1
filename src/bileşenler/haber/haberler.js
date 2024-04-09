@@ -146,6 +146,11 @@ const HaberYapici = (haber) => {
 
   button.addEventListener("click", () => {
     card.classList.toggle("article-open");
+    if (card.classList.contains("article-open")) {
+      button.textContent = "-";
+    } else {
+      button.textContent = "+";
+    }
   });
 
   //card elementinin içine title, date, p1, p2, p3, button elementlerini ekleyelim:
